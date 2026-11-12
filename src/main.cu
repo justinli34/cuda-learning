@@ -9,8 +9,8 @@ int main() {
     constexpr int K = 1024;
     constexpr int N = 1024;
 
-    std::vector<float> hA(size_t(M) * K, 1.0f);
-    std::vector<float> hB(size_t(K) * N, 2.0f);
+    std::vector<float> hA(static_cast<size_t>(M) * K, 1.0f);
+    std::vector<float> hB(static_cast<size_t>(K) * N, 2.0f);
 
     Matrix A = {nullptr, M, K};
     Matrix B = {nullptr, K, N};
@@ -18,7 +18,7 @@ int main() {
 
     cudaCheck(cudaMalloc(&A.data, hA.size() * sizeof(float)));
     cudaCheck(cudaMalloc(&B.data, hB.size() * sizeof(float)));
-    cudaCheck(cudaMalloc(&out.data, size_t(M) * N * sizeof(float)));
+    cudaCheck(cudaMalloc(&out.data, static_cast<size_t>(M) * N * sizeof(float)));
 
     cudaCheck(cudaMemcpy(A.data, hA.data(), hA.size() * sizeof(float), cudaMemcpyHostToDevice));
     cudaCheck(cudaMemcpy(B.data, hB.data(), hB.size() * sizeof(float), cudaMemcpyHostToDevice));
